@@ -1,7 +1,5 @@
+
 /**
- * Created by duyu on 2015/8/16.
- */
-/*
  * 扩展了 Duplex ; 会修改 Readable流 和 Writable流之间的数据
  * eg : crypto流
  * ps : 不需要实现 _read() / _write();  需要实现 _transform() / _flush()

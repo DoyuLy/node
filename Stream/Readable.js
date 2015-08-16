@@ -1,5 +1,5 @@
 
-/*
+/**
 * Readable 可读 -> eg :  http(res/req) fs  zlib crypto TCP stdout/stderr(child_process)  process.stdin
 * Writable 可写
 * Duplex   双工
@@ -20,7 +20,7 @@
 var util = require('util');
 var stream = require('stream');
 var _ = require('underscore');
-/*注意 inherits 实现的是原型继承,构造函数内的属性继承需要显式的调用父类对象才可以继承父类构造函数内定义的属性
+/**注意 inherits 实现的是原型继承,构造函数内的属性继承需要显式的调用父类对象才可以继承父类构造函数内定义的属性
 * function myObj(){
 *   events.EventEmitter.call(this); //必须显式的调用才可继承父类属性
 * }
