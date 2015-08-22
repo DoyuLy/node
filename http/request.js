@@ -1,15 +1,18 @@
 /**
  * ClientRequest
- *       http.request(options, cb)
+ *       http.request(options, cb(IncomingMessage))
  * ServerResponse
- *       response
+ *       res
  * IncomingMessage
- *       response
+ *       res
  * Server
  */
 
 
 var http = require('http');
+var bufferHelper = require('../BufferHelper');
+var bufferhelper = new bufferHelper();
+
 var options = {
     hostname: 'www.baidu.com'
     //path:'/',
@@ -17,12 +20,17 @@ var options = {
     //method:'get'
 }
 var req = http.request(options, function (res) {
-    var str = '';
-    res.on('data', function (chunk) {
-        str += chunk;
+    //var str = '';
+    //res.on('data', function (chunk) {
+    //    str += chunk;
+    //});
+    //res.on('end', function () {
+    //    console.log(str);
+    //})
+    bufferhelper.load(res, function (err, buffer) {
+        var html = buffer.toString();
+        console.log(html);
+        console.log(process);
     });
-    res.on('end', function () {
-        console.log(str);
-    })
 });
 req.end();
