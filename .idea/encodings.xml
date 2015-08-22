@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Buffer.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Events.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Stream/Duplex.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Stream/Readable.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Stream/Transform.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Stream/Writable.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Stream/r_pipe.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/node_modules/cluster/lib/worker.js" charset="UTF-8" />
+  </component>
+</project>
