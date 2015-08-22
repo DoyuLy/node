@@ -1,1 +1,1 @@
-apple 0grapes 3banana 2orange 1
+grapes banana orange apple 

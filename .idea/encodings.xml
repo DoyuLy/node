@@ -8,6 +8,7 @@
     <file url="file://$PROJECT_DIR$/Stream/Transform.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Stream/Writable.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Stream/r_pipe.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fs/createWriteStream.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fs/fs.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/node_modules/cluster/lib/worker.js" charset="UTF-8" />
   </component>
