@@ -1,18 +1,18 @@
 
 /**
- * Readable ¿É¶Á -> eg :  http(res/req) fs  zlib crypto TCP stdout/stderr(child_process)  process.stdin
- * Writable ¿ÉĞ´
- * Duplex   Ë«¹¤
- * Transform ±ä»»
+ * Readable å¯è¯» -> eg :  http(res/req) fs  zlib crypto TCP stdout/stderr(child_process)  process.stdin
+ * Writable å¯å†™
+ * Duplex   åŒå·¥
+ * Transform å˜æ¢
  *
  * write(chunk, [encoding], [callback])
  * return :true
- * event  :drain                           write()µ÷ÓÃ·µ»Øfalseºó, µ±×¼±¸Ğ´Èë¸ü¶àÊı¾İÊ±·¢³ö´ËÊÂ¼ş
- *         finish                          µ±end()±»µ÷ÓÃ,ËùÓĞÊı¾İ±»Ë¢ĞÂ,ÇÒ²»»áÓĞ¸ü¶àµÄÊı¾İÊ±
- *         pipe                            µ±pipe()ÔÚReadableÁ÷ÉÏ±»µ÷ÓÃÊ±
- *         unpipe                          Í¬ÉÏ
- * func   :write(chunk, [encoding], [callback])                    chunk ¿ÉÒÔÊÇBuffer  »ò  String;  ÈôÊÇstring¿ÉÖ¸¶¨encoding, callbackÔÚÊı¾İĞ´ÍêÊ±µ÷ÓÃ
- *         end([chunk], [encoding], [callback])                    Í¬ÉÏ, ²¢ÇÒ»á·¢ËÍfinish ÊÂ¼ş
+ * event  :drain                           write()è°ƒç”¨è¿”å›falseå, å½“å‡†å¤‡å†™å…¥æ›´å¤šæ•°æ®æ—¶å‘å‡ºæ­¤äº‹ä»¶
+ *         finish                          å½“end()è¢«è°ƒç”¨,æ‰€æœ‰æ•°æ®è¢«åˆ·æ–°,ä¸”ä¸ä¼šæœ‰æ›´å¤šçš„æ•°æ®æ—¶
+ *         pipe                            å½“pipe()åœ¨Readableæµä¸Šè¢«è°ƒç”¨æ—¶
+ *         unpipe                          åŒä¸Š
+ * func   :write(chunk, [encoding], [callback])                    chunk å¯ä»¥æ˜¯Buffer  æˆ–  String;  è‹¥æ˜¯stringå¯æŒ‡å®šencoding, callbackåœ¨æ•°æ®å†™å®Œæ—¶è°ƒç”¨
+ *         end([chunk], [encoding], [callback])                    åŒä¸Š, å¹¶ä¸”ä¼šå‘é€finish äº‹ä»¶
  */
 
 var util = require('util');
@@ -21,11 +21,11 @@ var _ = require('underscore');
 util.inherits(Writer, stream.Writable);
 
 function Writer(opt){
-    //ÉèÖÃWritable¶ÔÏóÊµÀı
+    //è®¾ç½®Writableå¯¹è±¡å®ä¾‹
     stream.Writable.call(this, opt);
     this.data = new Array();
 }
-//¸´Ğ´WritableÁ÷¶ÔÏóµÄ_write·½·¨
+//å¤å†™Writableæµå¯¹è±¡çš„_writeæ–¹æ³•
 Writer.prototype._write = function (data, enoding, callback) {
     this.data.push(data.toString('utf8'));
     callback && callback();

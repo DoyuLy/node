@@ -1,28 +1,28 @@
 
 /**
-* Readable ¿É¶Á -> eg :  http(res/req) fs  zlib crypto TCP stdout/stderr(child_process)  process.stdin
-* Writable ¿ÉÐ´
-* Duplex   Ë«¹¤
-* Transform ±ä»»
+* Readable å¯è¯» -> eg :  http(res/req) fs  zlib crypto TCP stdout/stderr(child_process)  process.stdin
+* Writable å¯å†™
+* Duplex   åŒå·¥
+* Transform å˜æ¢
 *
 * read([size])
 * return :String / Buffer / Null
 * event  :readable / data / end / close / error
-* func   :read([size])                    ¶ÁÈ¡¶ÔÏó¿ÉÎª String Buffer Null
-*         setEncoding(encoding)           ·µ»ØstringµÄ±àÂë
-*         pause()                         ÔÝÍ£´Ó¸Ã¶ÔÏó·¢³öµÄdataÊÂ¼þ
-*         resume()                        »Ø¸´´Ó¸Ã¶ÔÏó·¢³öµÄdataÊÂ¼þ
-*         pipe(destination, [options])    Á÷Êä³öµ½Ä¿µÄµØÖ¸¶¨µÄWritable¶ÔÏóÁ÷ options: {end: true} ÒâÎ¶×ÅReadable½áÊøÊ±½áÊøWritableÄ¿µÄµØ£¨Writable»á½Óµ½pipeÊÂ¼þ£©
-*         unpipe([deatination])           ´ÓWritableÄ¿µÄµØ¶Ï¿ª´Ë¶ÔÏó
+* func   :read([size])                    è¯»å–å¯¹è±¡å¯ä¸º String Buffer Null
+*         setEncoding(encoding)           è¿”å›žstringçš„ç¼–ç 
+*         pause()                         æš‚åœä»Žè¯¥å¯¹è±¡å‘å‡ºçš„dataäº‹ä»¶
+*         resume()                        å›žå¤ä»Žè¯¥å¯¹è±¡å‘å‡ºçš„dataäº‹ä»¶
+*         pipe(destination, [options])    æµè¾“å‡ºåˆ°ç›®çš„åœ°æŒ‡å®šçš„Writableå¯¹è±¡æµ options: {end: true} æ„å‘³ç€Readableç»“æŸæ—¶ç»“æŸWritableç›®çš„åœ°ï¼ˆWritableä¼šæŽ¥åˆ°pipeäº‹ä»¶ï¼‰
+*         unpipe([deatination])           ä»ŽWritableç›®çš„åœ°æ–­å¼€æ­¤å¯¹è±¡
 */
 
-//¶¨ÖÆReadableÁ÷¶ÔÏó
+//å®šåˆ¶Readableæµå¯¹è±¡
 var util = require('util');
 var stream = require('stream');
 var _ = require('underscore');
-/**×¢Òâ inherits ÊµÏÖµÄÊÇÔ­ÐÍ¼Ì³Ð,¹¹Ôìº¯ÊýÄÚµÄÊôÐÔ¼Ì³ÐÐèÒªÏÔÊ½µÄµ÷ÓÃ¸¸Àà¶ÔÏó²Å¿ÉÒÔ¼Ì³Ð¸¸Àà¹¹Ôìº¯ÊýÄÚ¶¨ÒåµÄÊôÐÔ
+/**æ³¨æ„ inherits å®žçŽ°çš„æ˜¯åŽŸåž‹ç»§æ‰¿,æž„é€ å‡½æ•°å†…çš„å±žæ€§ç»§æ‰¿éœ€è¦æ˜¾å¼çš„è°ƒç”¨çˆ¶ç±»å¯¹è±¡æ‰å¯ä»¥ç»§æ‰¿çˆ¶ç±»æž„é€ å‡½æ•°å†…å®šä¹‰çš„å±žæ€§
 * function myObj(){
-*   events.EventEmitter.call(this); //±ØÐëÏÔÊ½µÄµ÷ÓÃ²Å¿É¼Ì³Ð¸¸ÀàÊôÐÔ
+*   events.EventEmitter.call(this); //å¿…é¡»æ˜¾å¼çš„è°ƒç”¨æ‰å¯ç»§æ‰¿çˆ¶ç±»å±žæ€§
 * }
 * myObj.prototype.__proto__ = events.EventEmitter.prototype;
 *
@@ -34,7 +34,7 @@ function Answers(opt){
     this.quotes = ['yes', 'no', 'maybe'];
     this._index = 0;
 }
-//¸´Ð´ReadableÁ÷¶ÔÏóµÄ_read·½·¨
+//å¤å†™Readableæµå¯¹è±¡çš„_readæ–¹æ³•
 Answers.prototype._read = function () {
     if(this._index > _.size(this.quotes)){
         this.push(null);

@@ -2,7 +2,7 @@
  * Created by duyu on 2015/8/16.
  */
 /*
-    Ë«ÏòÁ÷ eg: TCPÌ×½Ó×Ö
+    åŒå‘æµ eg: TCPå¥—æ¥å­—
  */
 
 var util = require('util');

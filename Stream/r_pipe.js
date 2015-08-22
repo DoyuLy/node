@@ -38,5 +38,5 @@ var r = new Reader();
 var w = new Writer();
 r.pipe(w);
 
-//zlib 中压缩流    使用Gzip压缩流来把数据从一个流输送到另一个流
+//zlib 涓帇缂╂祦    浣跨敤Gzip鍘嬬缉娴佹潵鎶婃暟鎹粠涓�涓祦杈撻�佸埌鍙︿竴涓祦
 // inFileStream.pipe(zlib.CreateGzip()).pipe(outFileStream) //

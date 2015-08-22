@@ -1,8 +1,8 @@
 
 /**
- * À©Õ¹ÁË Duplex ; »áĞŞ¸Ä ReadableÁ÷ ºÍ WritableÁ÷Ö®¼äµÄÊı¾İ
- * eg : cryptoÁ÷
- * ps : ²»ĞèÒªÊµÏÖ _read() / _write();  ĞèÒªÊµÏÖ _transform() / _flush()
+ * æ‰©å±•äº† Duplex ; ä¼šä¿®æ”¹ Readableæµ å’Œ Writableæµä¹‹é—´çš„æ•°æ®
+ * eg : cryptoæµ
+ * ps : ä¸éœ€è¦å®ç° _read() / _write();  éœ€è¦å®ç° _transform() / _flush()
  */
 
 var util = require('util');
@@ -17,7 +17,7 @@ function JSONObjectStream (opt){
 JSONObjectStream.prototype._transform = function (data, encoding, callback) {
     var object = data ? JSON.parse(data.toString()) : '';
     //_.extend(object, {handled: true});
-    this.emit('object', object); //ÓÉÓÚStream¼Ì³ĞÁËEvents.Emitter;JSONObjectStream¼Ì³ĞÁË Stream.Transform
+    this.emit('object', object); //ç”±äºStreamç»§æ‰¿äº†Events.Emitter;JSONObjectStreamç»§æ‰¿äº† Stream.Transform
     this.push(JSON.stringify(object));
     callback && callback();
 
@@ -36,7 +36,7 @@ tc.addListener('data', function (data) {
     console.log('data: %s',  data.toString());
 })
 /************************************************/
-tc.write('{"name":"duyu", "color":"blue"}');//node¶ËµÄjson±ØĞë°´ÕÕÑÏ¸ñÄ£Ê½
+tc.write('{"name":"duyu", "color":"blue"}');//nodeç«¯çš„jsonå¿…é¡»æŒ‰ç…§ä¸¥æ ¼æ¨¡å¼
 //tc.write("{'name':'tom', 'color':'red'}");
 //tc.write("{'name':'lucy', 'color':'green'}");
 //tc.write("{'name':'lily', 'color':'purple'}");

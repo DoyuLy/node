@@ -3,29 +3,29 @@
  */
 var buf256 = new Buffer(256);
 
-//buffer.fill(value, [offset], [end]) Ìî³ä0
-buf256.fill();//initialize buf 0¼´Îª¿Õ
+//buffer.fill(value, [offset], [end]) å¡«å……0
+buf256.fill();//initialize buf 0å³ä¸ºç©º
 console.log(buf256.toString());
 //buffer.wwrite(string, [offset], [length], [encoding])
 buf256.write('add some text');
 console.log(buf256.toString());
 buf256.write('more text', 9, 9, 'utf8');
 console.log(buf256.toString());
-//Ìæ»»Ö¸¶¨offsetÎ»ÖÃÖµ
+//æ›¿æ¢æŒ‡å®šoffsetä½ç½®å€¼
 buf256[18] =43;
 console.log(buf256.toString());
 
-//string_decoder ¶ÁÈ¡»º³åÇø½âÂëÄÚÈİ
+//string_decoder è¯»å–ç¼“å†²åŒºè§£ç å†…å®¹
 var stringDecoder = require('string_decoder').StringDecoder;
 var decoder = new stringDecoder('utf8');
 console.log(decoder.write(buf256));
 
-//È·¶¨»º³åÇø³¤¶È£º×¢ÒâÇø·Ö×Ö·û³¤¶È ºÍ×Ö½Ú³¤¶È
+//ç¡®å®šç¼“å†²åŒºé•¿åº¦ï¼šæ³¨æ„åŒºåˆ†å­—ç¬¦é•¿åº¦ å’Œå­—èŠ‚é•¿åº¦
 console.log('test length \u00b6'.length);//13
-console.log(Buffer.byteLength('test length \u00b6', 'utf8')); //Ë«×Ö½Ú¶àÕ¼Ò»Î» 14
-console.log(Buffer('test length \u00b6').length); //Ë«×Ö½Ú¶àÕ¼Ò»Î» 14
+console.log(Buffer.byteLength('test length \u00b6', 'utf8')); //åŒå­—èŠ‚å¤šå ä¸€ä½ 14
+console.log(Buffer('test length \u00b6').length); //åŒå­—èŠ‚å¤šå ä¸€ä½ 14
 
-//»º³åÇø¸´ÖÆ
+//ç¼“å†²åŒºå¤åˆ¶
 //source.copy(target, [targetStart], [sourceStart], [sourEnd])
 var copyBuf = new Buffer(26);
 copyBuf.fill('.');
@@ -33,14 +33,14 @@ console.log(decoder.write(copyBuf));
 buf256.copy(copyBuf, 0, 0, 17);
 console.log(decoder.write(copyBuf));
 
-//ÇĞÆ¬:·µ»ØBuffer, ×¢ÒâÇĞÆ¬ÊÇ½ØÈ¡Ô´»º³åÇøÒ»½Ø,±à¼­ÇĞÆ¬»á¸Ä±äÔ´»º³åÇø(¶ø·Ç¸±±¾)
+//åˆ‡ç‰‡:è¿”å›Buffer, æ³¨æ„åˆ‡ç‰‡æ˜¯æˆªå–æºç¼“å†²åŒºä¸€æˆª,ç¼–è¾‘åˆ‡ç‰‡ä¼šæ”¹å˜æºç¼“å†²åŒº(è€Œéå‰¯æœ¬)
 //slice([start], [end])
 var slice = buf256.slice(5,15);
 console.log(decoder.write(slice));
 slice[0] = '#'.charCodeAt(0);
-console.log(decoder.write(buf256)) ;//¸Ä±äÁËÔ´»º³åÇø
+console.log(decoder.write(buf256)) ;//æ”¹å˜äº†æºç¼“å†²åŒº
 
-//Æ´½Ó
+//æ‹¼æ¥
 var b1 = new Buffer('1');
 var b2 = new Buffer('2');
 var b3 = new Buffer('3');
