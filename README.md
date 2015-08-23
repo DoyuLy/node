@@ -23,15 +23,20 @@
     3.2 error 事件 :内置的特殊事件,若无监听器,node会抛出异常
     3.3 events.EventEmitter继承 --> fs/net/http...
 
-    4.fs 文件系统
-    5.http/https
+    4. fs 文件系统 :所有都支持同步和异步,并支持stream 和 buffer
+    5. http/https  : 简单的http底层包, 并不提供session cookie router 管理
+
+
 
     Node.js 第三方包
+
     1.http相关
     1.1 url              :提供url解析(parse/format/resolve)
     1.2 querystring      :url参数字符串与对象间的转换(stringify/parse/escape/unescape)
     1.3 path             :处理转换文件路径工具集
-    1.4
+    1.4 request          :http request 包
+    1.4 connect中间件    :express3.x内置依赖库,4.x已移除,只内置了
+                         :
 
     2.fs相关
 
@@ -43,8 +48,10 @@
     n.3 restify :只专注RESTful
     n.4
 
-    n.部署
-    n.1 forever
-    n.2 pm2
-    n.3 supervisor(开发时)
+    n.热/集群部署
+    n.1 forever           :node守候进程(一般用于小型多站点,windows正式环境)
+    n.2 pm2               :大型全面监控(线上)
+    n.3 supervisor        :时监控文件是否更新重启(开发)
+    n.4 nodemon           :nodemon app.js
+    n.5 node-dev          :node-dev --debug app.js
 */
