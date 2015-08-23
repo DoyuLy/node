@@ -1,75 +1,75 @@
 /**
- * http.STATUS_CODES     :È«²¿±ê×¼HTTPÏìÓ¦×´Ì¬ÂëµÄ¼¯ºÏºÍ¼ò¶ÌÃèÊö¡£ÀıÈçhttp.STATUS_CODES[404] === 'Not Found'
+ * http.STATUS_CODES     :å…¨éƒ¨æ ‡å‡†HTTPå“åº”çŠ¶æ€ç çš„é›†åˆå’Œç®€çŸ­æè¿°ã€‚ä¾‹å¦‚http.STATUS_CODES[404] === 'Not Found'
  * http.createServer([requestListener])
  * http.createClient([port],
  *
- *   ¸½×¢: request ºÍ response ·ÖÎª client ºÍ server
- *   Ö±½ÓÍ¨¹ıhttp¶ÔÏóÊ¹ÓÃµÄÓĞ£º
+ *   é™„æ³¨: request å’Œ response åˆ†ä¸º client å’Œ server
+ *   ç›´æ¥é€šè¿‡httpå¯¹è±¡ä½¿ç”¨çš„æœ‰ï¼š
  *   http.STATUS_CODES                  :http: {STATUS_CODE: {'100': 'Continue', ... ,'511': 'Network Authentication Required'}}
  *
  *
- *   http.createServer                  :·µ»Ø http.server ÊµÀı
- *                                       ·½Ê½1: http.createServer(function(http.IcomingMessage req, http.serverResponse res)
- *                                       ·½Ê½2: var server = new http.Server(); //ÕâÊÇÒ»¸ö°üº¬ÊÂ¼şµÄEventEmitter
+ *   http.createServer                  :è¿”å› http.server å®ä¾‹
+ *                                       æ–¹å¼1: http.createServer(function(http.IcomingMessage req, http.serverResponse res)
+ *                                       æ–¹å¼2: var server = new http.Server(); //è¿™æ˜¯ä¸€ä¸ªåŒ…å«äº‹ä»¶çš„EventEmitter
  *                                              server.on('request',function(http.IncomingMessag req, http.ServerResponse res){
  *                                                res.writeHeader(200,{'Content-Type':'text/'});
  *                                                res.end('hello world');
  *                                              }
- *                                              //http.serverÊÂ¼şÓĞ request
+ *                                              //http.serveräº‹ä»¶æœ‰ request
  *                                                                  connection
  *                                                                  close
  *                                                                  checkContinue
  *                                                                  connect
  *                                                                  upgrade
  *                                                                  clientError
- *                                              //http.server·½·¨ÓĞ listen('path', cb || port, [hostname], [backlog], [callback] || handle, [callback])
+ *                                              //http.serveræ–¹æ³•æœ‰ listen('path', cb || port, [hostname], [backlog], [callback] || handle, [callback])
  *                                                                  setTimeout()/...
- *                                              //http.serverÊôĞÔÓĞ maxHeadersCount
+ *                                              //http.serverå±æ€§æœ‰ maxHeadersCount
  *                                                                  timeout...
  *
  *
- *   http.server                         :ÊÇÒ»¸ö¼Ì³ĞEventEmitterµÄ¶ÔÏó,ÊÂ¼şÈçÉÏËùÊö
+ *   http.server                         :æ˜¯ä¸€ä¸ªç»§æ‰¿EventEmitterçš„å¯¹è±¡,äº‹ä»¶å¦‚ä¸Šæ‰€è¿°
  *
  *
- *   http.ServerResponse                 :ÊÇÊµÏÖÁËWritable ²¢¼Ì³ĞÁËEventEmitterµÄ¶ÔÏó,ÓÉÏµÍ³×Ô¶¯´´½¨²¢´«µİµ½'request'ÊÂ¼şµÄµÚ¶ş¸ö²ÎÊı
- *                                        ÊÂ¼ş: close
- *                                        ·½·¨: writeContinue() ¶ÔÓ¦'checkContinue'ÊÂ¼ş
+ *   http.ServerResponse                 :æ˜¯å®ç°äº†Writable å¹¶ç»§æ‰¿äº†EventEmitterçš„å¯¹è±¡,ç”±ç³»ç»Ÿè‡ªåŠ¨åˆ›å»ºå¹¶ä¼ é€’åˆ°'request'äº‹ä»¶çš„ç¬¬äºŒä¸ªå‚æ•°
+ *                                        äº‹ä»¶: close
+ *                                        æ–¹æ³•: writeContinue() å¯¹åº”'checkContinue'äº‹ä»¶
  *                                              writeHead(statusCode, [reasonPhrase], [headers])
  *                                              setTimeout(msecs, callback)
  *                                              setHeader(name, value)
  *                                              getHeader(name)
  *                                              removeHeader(name)
- *                                              write(chunk, [encoding]) //chunk¿ÉÒÔÊÇbuffer or string, ÈôÊÇstringÔò¿É°´Ö¸¶¨encoding
- *                                              addTrailers(headers)     //ºÜÉÙÊ¹ÓÃ
- *                                              end([data], [encoding])  //Ã¿´ÎÏìÓ¦Íê³É±ØĞëµ÷ÓÃend()
- *                                         ÊôĞÔ:headersSent/sendDate(Ò»°ã²»»á½ûÓÃ)/statusCode intĞÍ×´Ì¬Âë
+ *                                              write(chunk, [encoding]) //chunkå¯ä»¥æ˜¯buffer or string, è‹¥æ˜¯stringåˆ™å¯æŒ‰æŒ‡å®šencoding
+ *                                              addTrailers(headers)     //å¾ˆå°‘ä½¿ç”¨
+ *                                              end([data], [encoding])  //æ¯æ¬¡å“åº”å®Œæˆå¿…é¡»è°ƒç”¨end()
+ *                                         å±æ€§:headersSent/sendDate(ä¸€èˆ¬ä¸ä¼šç¦ç”¨)/statusCode intå‹çŠ¶æ€ç 
  *
  *
- *   http.createClient               :ÒÑ±» http.request Ìæ»»
+ *   http.createClient               :å·²è¢« http.request æ›¿æ¢
  *
- *   http.request(options, cb(http.IncomingMessag res){})     : Ìæ´úÁËhttp.createClient([port], [host])
- *                                                              ·µ»Øhttp.ClientRequestÊµÀı (http¿Í»§¶Ë¹¤¾ß,Ä£ÄâÇëÇó/×ª·¢/ÅÀ³æ)
- *                                                              //ClientRequestÊÂ¼şÓĞ response
+ *   http.request(options, cb(http.IncomingMessag res){})     : æ›¿ä»£äº†http.createClient([port], [host])
+ *                                                              è¿”å›http.ClientRequestå®ä¾‹ (httpå®¢æˆ·ç«¯å·¥å…·,æ¨¡æ‹Ÿè¯·æ±‚/è½¬å‘/çˆ¬è™«)
+ *                                                              //ClientRequestäº‹ä»¶æœ‰ response
  *                                                                                    connect
  *                                                                                    socket
  *                                                                                    upgrade
  *                                                                                    continue
  *                                                                                    error
- *                                                              //ClientRequest·½·¨ÓĞ write(chunk, [encoding])
+ *                                                              //ClientRequestæ–¹æ³•æœ‰ write(chunk, [encoding])
  *                                                                                    abort
  *                                                                                    setTimeout
  *                                                                                    setNoDelay
  *                                                                                    setSocketKeepAlive([enable], [initialDelay])
- *                                                                                    end(ÇëÇóÍê±ÏĞèÒªÊÖ¶¯ÉùÃ÷µ÷ÓÃreq.end([data], [encoding]))
- *                                                              //IncomingMessagÊÂ¼şÓĞ data/end
+ *                                                                                    end(è¯·æ±‚å®Œæ¯•éœ€è¦æ‰‹åŠ¨å£°æ˜è°ƒç”¨req.end([data], [encoding]))
+ *                                                              //IncomingMessagäº‹ä»¶æœ‰ data/end
  *
  *
- *   http.get(url, cb(http.IncomingMessag res))               :http.request()¼ò»¯°æ,²»ĞèÒªÖ¸¶¨method,Í¬Ê±×Ô¶¯µ÷ÓÃreq.end()
+ *   http.get(url, cb(http.IncomingMessag res))               :http.request()ç®€åŒ–ç‰ˆ,ä¸éœ€è¦æŒ‡å®šmethod,åŒæ—¶è‡ªåŠ¨è°ƒç”¨req.end()
  *
  *
- *   http.ClientRequest         :²Î¼ûhttp.request
+ *   http.ClientRequest         :å‚è§http.request
  *
- *   http.IncomingMessage       :http.Server»òhttp.ClientRequest´´½¨, ²¢×÷ÎªµÚÒ»²ÎÊı·Ö±ğ´«µİ¸ø'request'ºÍ'response' ÊÂ¼ş
+ *   http.IncomingMessage       :http.Serveræˆ–http.ClientRequeståˆ›å»º, å¹¶ä½œä¸ºç¬¬ä¸€å‚æ•°åˆ†åˆ«ä¼ é€’ç»™'request'å’Œ'response' äº‹ä»¶
  *
  *   http.globalAgent
  *
@@ -82,23 +82,23 @@
 var http = require('http');
 /************************************************** http.createServer ***************************************************************/
 /**
- * ´´½¨·şÎñÆ÷µÄÁ½ÖÖĞ´·¨£¬µÚÒ»ÖÖĞ´·¨ÈçÏÂ
- * ÓÉÓÚserverÒÑ¾­¼Ì³ĞÁËEventEmitterµÄÊÂ¼ş¹¦ÄÜ£¬ËùÒÔ¿ÉÒÔÊ¹ÓÃ¸ß¼¶º¯Êı±àĞ´·½Ê½¼à¿ØÊÂ¼ş
+ * åˆ›å»ºæœåŠ¡å™¨çš„ä¸¤ç§å†™æ³•ï¼Œç¬¬ä¸€ç§å†™æ³•å¦‚ä¸‹
+ * ç”±äºserverå·²ç»ç»§æ‰¿äº†EventEmitterçš„äº‹ä»¶åŠŸèƒ½ï¼Œæ‰€ä»¥å¯ä»¥ä½¿ç”¨é«˜çº§å‡½æ•°ç¼–å†™æ–¹å¼ç›‘æ§äº‹ä»¶
  * @param {Function} request event
  */
 var server = http.createServer(function(req,res)
 {
-    //ÕâÀïµÄreqÎªhttp.serverRequest
+    //è¿™é‡Œçš„reqä¸ºhttp.serverRequest
     res.writeHeader(200,{'Content-Type':'text/plain'});
     res.end('hello world');
 });
 
 
 /**
- * ËµÃ÷£º´´½¨·şÎñÆ÷µÄµÚ¶şÖÖĞ´·¨
- * ÓĞ¹Øserver¶ÔÏóµÄÊÂ¼ş¼àÌı
- * @param {Object} req ÊÇhttp.IncomingMessagµÄÒ»¸öÊµÀı£¬ÔÚkeep-aliveÁ¬½ÓÖĞÖ§³Ö¶à¸öÇëÇó
- * @param {Object} res ÊÇhttp.ServerResponseµÄÒ»¸öÊµÀı
+ * è¯´æ˜ï¼šåˆ›å»ºæœåŠ¡å™¨çš„ç¬¬äºŒç§å†™æ³•
+ * æœ‰å…³serverå¯¹è±¡çš„äº‹ä»¶ç›‘å¬
+ * @param {Object} req æ˜¯http.IncomingMessagçš„ä¸€ä¸ªå®ä¾‹ï¼Œåœ¨keep-aliveè¿æ¥ä¸­æ”¯æŒå¤šä¸ªè¯·æ±‚
+ * @param {Object} res æ˜¯http.ServerResponseçš„ä¸€ä¸ªå®ä¾‹
  */
 var server = new http.Server();
 server.on('request',function(req,res){
@@ -107,102 +107,102 @@ server.on('request',function(req,res){
 });
 
 /**
- * ËµÃ÷£ºĞÂµÄTCPÁ÷½¨Á¢Ê±³ö·¢¡£ socketÊÇÒ»¸önet.Socket¶ÔÏó¡£ Í¨³£ÓÃ»§ÎŞĞè´¦Àí¸ÃÊÂ¼ş¡£
- * ÌØ±ğ×¢Òâ£¬Ğ­Òé½âÎöÆ÷°ó¶¨Ì×½Ó×ÖÊ±²ÉÓÃµÄ·½Ê½Ê¹Ì×½Ó×Ö²»»á³ö·¢readableÊÂ¼ş¡£ »¹¿ÉÒÔÍ¨¹ırequest.connection·ÃÎÊsocket¡£
+ * è¯´æ˜ï¼šæ–°çš„TCPæµå»ºç«‹æ—¶å‡ºå‘ã€‚ socketæ˜¯ä¸€ä¸ªnet.Socketå¯¹è±¡ã€‚ é€šå¸¸ç”¨æˆ·æ— éœ€å¤„ç†è¯¥äº‹ä»¶ã€‚
+ * ç‰¹åˆ«æ³¨æ„ï¼Œåè®®è§£æå™¨ç»‘å®šå¥—æ¥å­—æ—¶é‡‡ç”¨çš„æ–¹å¼ä½¿å¥—æ¥å­—ä¸ä¼šå‡ºå‘readableäº‹ä»¶ã€‚ è¿˜å¯ä»¥é€šè¿‡request.connectionè®¿é—®socketã€‚
  * @param {Object} socket
  */
 server.on('connection',function(socket){});
 
 /**
- * Ô´API: Event: 'close'
- * ËµÃ÷£º¹Ø±Õ·şÎñÆ÷Ê±´¥·¢
+ * æºAPI: Event: 'close'
+ * è¯´æ˜ï¼šå…³é—­æœåŠ¡å™¨æ—¶è§¦å‘
  */
 server.on('close',function(){});
 
 /**
- * ËµÃ÷£ºÃ¿µ±ÊÕµ½Expect: 100-continueµÄhttpÇëÇóÊ±´¥·¢¡£ Èç¹ûÎ´¼àÌı¸ÃÊÂ¼ş£¬·şÎñÆ÷»á×ÃÇé×Ô¶¯·¢ËÍ100 ContinueÏìÓ¦¡£
- * ´¦Àí¸ÃÊÂ¼şÊ±£¬Èç¹û¿Í»§¶Ë¿ÉÒÔ¼ÌĞø·¢ËÍÇëÇóÖ÷ÌåÔòµ÷ÓÃresponse.writeContinue£¬ Èç¹û²»ÄÜÔòÉú³ÉºÏÊÊµÄHTTPÏìÓ¦£¨ÀıÈç£¬400 ÇëÇóÎŞĞ§£©
- * ĞèÒª×¢Òâµ½, µ±Õâ¸öÊÂ¼ş´¥·¢²¢ÇÒ±»´¦Àíºó, request ÊÂ¼ş½«²»ÔÙ»á´¥·¢.
+ * è¯´æ˜ï¼šæ¯å½“æ”¶åˆ°Expect: 100-continueçš„httpè¯·æ±‚æ—¶è§¦å‘ã€‚ å¦‚æœæœªç›‘å¬è¯¥äº‹ä»¶ï¼ŒæœåŠ¡å™¨ä¼šé…Œæƒ…è‡ªåŠ¨å‘é€100 Continueå“åº”ã€‚
+ * å¤„ç†è¯¥äº‹ä»¶æ—¶ï¼Œå¦‚æœå®¢æˆ·ç«¯å¯ä»¥ç»§ç»­å‘é€è¯·æ±‚ä¸»ä½“åˆ™è°ƒç”¨response.writeContinueï¼Œ å¦‚æœä¸èƒ½åˆ™ç”Ÿæˆåˆé€‚çš„HTTPå“åº”ï¼ˆä¾‹å¦‚ï¼Œ400 è¯·æ±‚æ— æ•ˆï¼‰
+ * éœ€è¦æ³¨æ„åˆ°, å½“è¿™ä¸ªäº‹ä»¶è§¦å‘å¹¶ä¸”è¢«å¤„ç†å, request äº‹ä»¶å°†ä¸å†ä¼šè§¦å‘.
  * @param {Object} req
  * @param {Object} req
  */
 server.on('checkContinue',function(req,res){});
 
 /**
- * ËµÃ÷£ºÈç¹û¿Í»§¶Ë·¢ÆğconnectÇëÇó£¬Èç¹û·şÎñÆ÷¶ËÃ»ÓĞ¼àÌı£¬ÄÇÃ´ÓÚ¿Í»§¶ËÇëÇóµÄ¸ÃÁ¬½Ó½«»á±»¹Ø±Õ
- * @param {Object} req ÊÇ¸ÃHTTPÇëÇóµÄ²ÎÊı£¬ÓërequestÊÂ¼şÖĞµÄÏàÍ¬¡£
- * @param {Object} socket ÊÇ·şÎñ¶ËÓë¿Í»§¶ËÖ®¼äµÄÍøÂçÌ×½Ó×Ö¡£ĞèÒª×Ô¼ºĞ´Ò»¸ödataÊÂ¼ş¼àÌıÊı¾İÁ÷
- * @param {Object} head ÊÇÒ»¸öBufferÊµÀı£¬ËíµÀÁ÷µÄµÚÒ»¸ö°ü£¬¸Ã²ÎÊı¿ÉÄÜÎª¿Õ¡£
+ * è¯´æ˜ï¼šå¦‚æœå®¢æˆ·ç«¯å‘èµ·connectè¯·æ±‚ï¼Œå¦‚æœæœåŠ¡å™¨ç«¯æ²¡æœ‰ç›‘å¬ï¼Œé‚£ä¹ˆäºå®¢æˆ·ç«¯è¯·æ±‚çš„è¯¥è¿æ¥å°†ä¼šè¢«å…³é—­
+ * @param {Object} req æ˜¯è¯¥HTTPè¯·æ±‚çš„å‚æ•°ï¼Œä¸requestäº‹ä»¶ä¸­çš„ç›¸åŒã€‚
+ * @param {Object} socket æ˜¯æœåŠ¡ç«¯ä¸å®¢æˆ·ç«¯ä¹‹é—´çš„ç½‘ç»œå¥—æ¥å­—ã€‚éœ€è¦è‡ªå·±å†™ä¸€ä¸ªdataäº‹ä»¶ç›‘å¬æ•°æ®æµ
+ * @param {Object} head æ˜¯ä¸€ä¸ªBufferå®ä¾‹ï¼Œéš§é“æµçš„ç¬¬ä¸€ä¸ªåŒ…ï¼Œè¯¥å‚æ•°å¯èƒ½ä¸ºç©ºã€‚
  */
 server.on('connect',function(req,socket,head){});
 
 /**
- * ËµÃ÷£ºÕâ¸öÊÂ¼şÖ÷ÒªÊÇ¶ÔHTTPĞ­ÒéÉı¼¶ÎªÆäËûĞ­ÒéºóµÄÊÂ¼ş¼àÌı£¬Èç¹û·şÎñÆ÷¶ËÃ»ÓĞ¼àÌı£¬ÄÇÃ´ÓÚ¿Í»§¶ËÇëÇóµÄ¸ÃÁ¬½Ó½«»á±»¹Ø±Õ
- * @param {Object} req ÊÇ¸ÃHTTPÇëÇóµÄ²ÎÊı£¬ÓërequestÊÂ¼şÖĞµÄÏàÍ¬¡£
- * @param {Object} socket ÊÇ·şÎñ¶ËÓë¿Í»§¶ËÖ®¼äµÄÍøÂçÌ×½Ó×Ö¡£ĞèÒª×Ô¼ºĞ´Ò»¸ödataÊÂ¼ş¼àÌıÊı¾İÁ÷
- * @param {Object} head ÊÇÒ»¸öBufferÊµÀı£¬Éı¼¶ºóÁ÷µÄµÚÒ»¸ö°ü£¬¸Ã²ÎÊı¿ÉÄÜÎª¿Õ¡£
+ * è¯´æ˜ï¼šè¿™ä¸ªäº‹ä»¶ä¸»è¦æ˜¯å¯¹HTTPåè®®å‡çº§ä¸ºå…¶ä»–åè®®åçš„äº‹ä»¶ç›‘å¬ï¼Œå¦‚æœæœåŠ¡å™¨ç«¯æ²¡æœ‰ç›‘å¬ï¼Œé‚£ä¹ˆäºå®¢æˆ·ç«¯è¯·æ±‚çš„è¯¥è¿æ¥å°†ä¼šè¢«å…³é—­
+ * @param {Object} req æ˜¯è¯¥HTTPè¯·æ±‚çš„å‚æ•°ï¼Œä¸requestäº‹ä»¶ä¸­çš„ç›¸åŒã€‚
+ * @param {Object} socket æ˜¯æœåŠ¡ç«¯ä¸å®¢æˆ·ç«¯ä¹‹é—´çš„ç½‘ç»œå¥—æ¥å­—ã€‚éœ€è¦è‡ªå·±å†™ä¸€ä¸ªdataäº‹ä»¶ç›‘å¬æ•°æ®æµ
+ * @param {Object} head æ˜¯ä¸€ä¸ªBufferå®ä¾‹ï¼Œå‡çº§åæµçš„ç¬¬ä¸€ä¸ªåŒ…ï¼Œè¯¥å‚æ•°å¯èƒ½ä¸ºç©ºã€‚
  */
 server.on('upgrade',function(req,socket,head){});
 
 /**
- * ËµÃ÷£ºÈç¹ûÒ»¸ö¿Í»§¶ËÁ¬½Ó´¥·¢ÁËÒ»¸ö 'error' ÊÂ¼ş, Ëü¾Í»á×ª·¢µ½ÕâÀï
+ * è¯´æ˜ï¼šå¦‚æœä¸€ä¸ªå®¢æˆ·ç«¯è¿æ¥è§¦å‘äº†ä¸€ä¸ª 'error' äº‹ä»¶, å®ƒå°±ä¼šè½¬å‘åˆ°è¿™é‡Œ
  * @param {Object} exception
  * @param {Object} socket
  */
 server.on('clientError',function(exception,socket){});
 
 /**
- * Ô´API£ºserver.listen(port, [hostname], [backlog], [callback])
- * ËµÃ÷£º¼àÌıÒ»¸ö unix socket, ĞèÒªÌá¹©Ò»¸öÎÄ¼şÃû¶ø²»ÊÇ¶Ë¿ÚºÅºÍÖ÷»úÃû¡£
- * @param {Number} port ¶Ë¿Ú
- * @param {String} host Ö÷»ú
- * @param {Number} backlog µÈ´ı¶ÓÁĞµÄ×î´ó³¤¶È£¬¾ö¶¨ÓÚ²Ù×÷ÏµÍ³Æ½Ì¨£¬Ä¬ÈÏÊÇ511
- * @param {Function} callback Òì²½»Øµ÷º¯Êı
+ * æºAPIï¼šserver.listen(port, [hostname], [backlog], [callback])
+ * è¯´æ˜ï¼šç›‘å¬ä¸€ä¸ª unix socket, éœ€è¦æä¾›ä¸€ä¸ªæ–‡ä»¶åè€Œä¸æ˜¯ç«¯å£å·å’Œä¸»æœºåã€‚
+ * @param {Number} port ç«¯å£
+ * @param {String} host ä¸»æœº
+ * @param {Number} backlog ç­‰å¾…é˜Ÿåˆ—çš„æœ€å¤§é•¿åº¦ï¼Œå†³å®šäºæ“ä½œç³»ç»Ÿå¹³å°ï¼Œé»˜è®¤æ˜¯511
+ * @param {Function} callback å¼‚æ­¥å›è°ƒå‡½æ•°
  */
 //server.listen(3000,'localhost',100,function(){});
 
 /**
- * Ô´API£ºserver.listen(path, [callback])
- * ËµÃ÷£ºÆô¶¯Ò»¸ö UNIX Ì×½Ó×Ö·şÎñÆ÷ÔÚËù¸øÂ·¾¶ path ÉÏ¼àÌıÁ¬½Ó¡£
- * ¿ÉÄÜÓÃ´¦£º¶àÂ·¾¶»òÇşµÀÊı¾İÀ´Ô´¼àÌı·Ö¸ô
+ * æºAPIï¼šserver.listen(path, [callback])
+ * è¯´æ˜ï¼šå¯åŠ¨ä¸€ä¸ª UNIX å¥—æ¥å­—æœåŠ¡å™¨åœ¨æ‰€ç»™è·¯å¾„ path ä¸Šç›‘å¬è¿æ¥ã€‚
+ * å¯èƒ½ç”¨å¤„ï¼šå¤šè·¯å¾„æˆ–æ¸ é“æ•°æ®æ¥æºç›‘å¬åˆ†éš”
  * @param {String} path
  * @param {Function} callback
  */
 //server.listen('path',function(){})
 
 /**
- * Ô´API£ºserver.listen(handle, [callback])
- * ËµÃ÷£ºWindows ²»Ö§³Ö¼àÌıÒ»¸öÎÄ¼şÃèÊö·û¡£
- * @param {Object} handle ±äÁ¿¿ÉÒÔ±»ÉèÖÃÎªserver »òÕß socket
+ * æºAPIï¼šserver.listen(handle, [callback])
+ * è¯´æ˜ï¼šWindows ä¸æ”¯æŒç›‘å¬ä¸€ä¸ªæ–‡ä»¶æè¿°ç¬¦ã€‚
+ * @param {Object} handle å˜é‡å¯ä»¥è¢«è®¾ç½®ä¸ºserver æˆ–è€… socket
  * @param {Function} callback
  */
 //server.listen({},function(){});
 
 /**
- * ËµÃ÷£º×î´óÇëÇóÍ·ÊıÄ¿ÏŞÖÆ, Ä¬ÈÏ 1000 ¸ö. Èç¹ûÉèÖÃÎª0, Ôò´ú±í²»×öÈÎºÎÏŞÖÆ.
+ * è¯´æ˜ï¼šæœ€å¤§è¯·æ±‚å¤´æ•°ç›®é™åˆ¶, é»˜è®¤ 1000 ä¸ª. å¦‚æœè®¾ç½®ä¸º0, åˆ™ä»£è¡¨ä¸åšä»»ä½•é™åˆ¶.
  * @type {number}
  */
 server.maxHeadersCount = 1000;
 
 /**
- * Ô´API£ºserver.setTimeout(msecs, callback)
- * ËµÃ÷£ºÎªÌ×½Ó×ÖÉè¶¨³¬Ê±Öµ¡£Èç¹ûÒ»¸ö³¬Ê±·¢Éú£¬ÄÇÃ´Server¶ÔÏóÉÏ»á·Ö·¢Ò»¸ö'timeout'ÊÂ¼ş£¬Í¬Ê±½«Ì×½Ó×Ö×÷Îª²ÎÊı´«µİ¡£
- * ÉèÖÃÎª0½«×èÖ¹Ö®ºó½¨Á¢µÄÁ¬½ÓµÄÒ»ÇĞ×Ô¶¯³¬Ê±ĞĞÎª
+ * æºAPIï¼šserver.setTimeout(msecs, callback)
+ * è¯´æ˜ï¼šä¸ºå¥—æ¥å­—è®¾å®šè¶…æ—¶å€¼ã€‚å¦‚æœä¸€ä¸ªè¶…æ—¶å‘ç”Ÿï¼Œé‚£ä¹ˆServerå¯¹è±¡ä¸Šä¼šåˆ†å‘ä¸€ä¸ª'timeout'äº‹ä»¶ï¼ŒåŒæ—¶å°†å¥—æ¥å­—ä½œä¸ºå‚æ•°ä¼ é€’ã€‚
+ * è®¾ç½®ä¸º0å°†é˜»æ­¢ä¹‹åå»ºç«‹çš„è¿æ¥çš„ä¸€åˆ‡è‡ªåŠ¨è¶…æ—¶è¡Œä¸º
  * @param {Number} msecs
  * @param
  */
 server.setTimeout(1000,function(){});
 
 /**
- * ËµÃ÷£ºÒ»¸öÌ×½Ó×Ö±»ÅĞ¶ÏÎª³¬Ê±Ö®Ç°µÄÏĞÖÃºÁÃëÊı¡£ Ä¬ÈÏ 120000 (2 ·ÖÖÓ)
+ * è¯´æ˜ï¼šä¸€ä¸ªå¥—æ¥å­—è¢«åˆ¤æ–­ä¸ºè¶…æ—¶ä¹‹å‰çš„é—²ç½®æ¯«ç§’æ•°ã€‚ é»˜è®¤ 120000 (2 åˆ†é’Ÿ)
  * @type {number}
  */
 server.timeout = 120000;
 
 /**
- * ËµÃ÷£ºÕâÀïµÄÖ÷»ú½«ÊÇ±¾µØ
- * @param {Number} port ¶Ë¿Ú
- * @param {Function} callback Òì²½»Øµ÷º¯Êı
+ * è¯´æ˜ï¼šè¿™é‡Œçš„ä¸»æœºå°†æ˜¯æœ¬åœ°
+ * @param {Number} port ç«¯å£
+ * @param {Function} callback å¼‚æ­¥å›è°ƒå‡½æ•°
  */
 server.listen(3000,function(){
     console.log('Listen port 3000');
@@ -210,13 +210,13 @@ server.listen(3000,function(){
 
 /************************************************** http.request ***************************************************************/
 /**
- * ²ÎÊıÅäÖÃ
+ * å‚æ•°é…ç½®
  * @type {{hostname: string, port: number, method: string, path: string,handers: {}}}
- * host:ÇëÇóµÄ·şÎñÆ÷ÓòÃû»òÕßIPµØÖ·
- * port:¶Ë¿Ú
- * method:ÇëÇó·½Ê½ÓĞPOST,GET,INPUT,DELETE,CONNECT£¬Ä¬ÈÏÎªGET
- * path£ºÇëÇóµØÖ·£¬¿É°üº¬²éÑ¯×Ö·û´®ÒÔ¼°¿ÉÄÜ´æÔÚµÄÃªµã¡£ÀıÈç'/index.html?page=12'
- * handers: Ò»¸ö°üº¬ÇëÇóÍ·µÄ¶ÔÏó¡£
+ * host:è¯·æ±‚çš„æœåŠ¡å™¨åŸŸåæˆ–è€…IPåœ°å€
+ * port:ç«¯å£
+ * method:è¯·æ±‚æ–¹å¼æœ‰POST,GET,INPUT,DELETE,CONNECTï¼Œé»˜è®¤ä¸ºGET
+ * pathï¼šè¯·æ±‚åœ°å€ï¼Œå¯åŒ…å«æŸ¥è¯¢å­—ç¬¦ä¸²ä»¥åŠå¯èƒ½å­˜åœ¨çš„é”šç‚¹ã€‚ä¾‹å¦‚'/index.html?page=12'
+ * handers: ä¸€ä¸ªåŒ…å«è¯·æ±‚å¤´çš„å¯¹è±¡ã€‚
  */
 var options =
 {
@@ -228,16 +228,16 @@ var options =
 };
 
 /**
- * ÈçÏÂÌØ±ğµÄÏûÏ¢Í·Ó¦µ±×¢Òâ£º
- * ·¢ËÍ'Connection: keep-alive'Í·²¿½«Í¨ÖªNode´ËÁ¬½Ó½«±£³Öµ½ÏÂÒ»´ÎÇëÇó¡£
- * ·¢ËÍ'Content-length'Í·½«Ê¹Ä¬ÈÏµÄ·Ö¿é±àÂëÎŞĞ§¡£
- * ·¢ËÍ'Expect'Í·²¿½«ÒıÆğÇëÇóÍ·²¿Á¢¼´±»·¢ËÍ¡£
- * Í¨³£Çé¿ö£¬µ±·¢ËÍ'Expect: 100-continue'Ê±£¬ÄãĞèÒª¼àÌıcontinueÊÂ¼şµÄÍ¬Ê±ÉèÖÃ³¬Ê±¡£²Î¼ûRFC2616 8.2.3ÕÂ½ÚÒÔ»ñµÃ¸ü¶àµÄĞÅÏ¢¡£
+ * å¦‚ä¸‹ç‰¹åˆ«çš„æ¶ˆæ¯å¤´åº”å½“æ³¨æ„ï¼š
+ * å‘é€'Connection: keep-alive'å¤´éƒ¨å°†é€šçŸ¥Nodeæ­¤è¿æ¥å°†ä¿æŒåˆ°ä¸‹ä¸€æ¬¡è¯·æ±‚ã€‚
+ * å‘é€'Content-length'å¤´å°†ä½¿é»˜è®¤çš„åˆ†å—ç¼–ç æ— æ•ˆã€‚
+ * å‘é€'Expect'å¤´éƒ¨å°†å¼•èµ·è¯·æ±‚å¤´éƒ¨ç«‹å³è¢«å‘é€ã€‚
+ * é€šå¸¸æƒ…å†µï¼Œå½“å‘é€'Expect: 100-continue'æ—¶ï¼Œä½ éœ€è¦ç›‘å¬continueäº‹ä»¶çš„åŒæ—¶è®¾ç½®è¶…æ—¶ã€‚å‚è§RFC2616 8.2.3ç« èŠ‚ä»¥è·å¾—æ›´å¤šçš„ä¿¡æ¯ã€‚
  */
 
 /**
- * ËµÃ÷£º¹Ù·½¸ø³öµÄÀı×Ó
- * Ó¦ÓÃ³¡¾°£ºÄ£Äâ¿Í·ş¶ËÇëÇó·şÎñÆ÷£¬ÊÇÒ»¸öHTTP ¿Í»§¶Ë¹¤¾ß£¬ÓÃÓÚÏò HTTP ·şÎñÆ÷·¢ÆğÇëÇó¡£
+ * è¯´æ˜ï¼šå®˜æ–¹ç»™å‡ºçš„ä¾‹å­
+ * åº”ç”¨åœºæ™¯ï¼šæ¨¡æ‹Ÿå®¢æœç«¯è¯·æ±‚æœåŠ¡å™¨ï¼Œæ˜¯ä¸€ä¸ªHTTP å®¢æˆ·ç«¯å·¥å…·ï¼Œç”¨äºå‘ HTTP æœåŠ¡å™¨å‘èµ·è¯·æ±‚ã€‚
  * @param {Object} options
  * @param {Function} callback
  */
@@ -271,48 +271,48 @@ req.on('continue',function(){
 
 })
 
-//Èç¹ûÔÚÇëÇó¹ı³ÌÖĞ³öÏÖÁË´íÎó£¨¿ÉÄÜÊÇDNS½âÎö¡¢TCPµÄ´íÎó¡¢»òÕßHTTP½âÎö´íÎó£©£¬·µ»ØµÄÇëÇó¶ÔÏóÉÏµÄ'error'µÄÊÂ¼ş½«±»´¥·¢¡£
+//å¦‚æœåœ¨è¯·æ±‚è¿‡ç¨‹ä¸­å‡ºç°äº†é”™è¯¯ï¼ˆå¯èƒ½æ˜¯DNSè§£æã€TCPçš„é”™è¯¯ã€æˆ–è€…HTTPè§£æé”™è¯¯ï¼‰ï¼Œè¿”å›çš„è¯·æ±‚å¯¹è±¡ä¸Šçš„'error'çš„äº‹ä»¶å°†è¢«è§¦å‘ã€‚
 req.on('error',function(e){
     console.log(e.message);
 });
 
 /**
- * Ô´API£ºrequest.write(chunk, [encoding])
- * ËµÃ÷£º·¢ËÍÕıÎÄÖĞµÄÒ»¿é¡£ÓÃ»§¿ÉÒÔÍ¨¹ı¶à´Îµ÷ÓÃÕâ¸ö·½·¨½«ÇëÇóÕıÎÄÒÔÁ÷µÄ·½Ê½·¢ËÍµ½·şÎñÆ÷¡£´ËÖÖÇé¿ö½¨ÒéÔÚ½¨Á¢ÇëÇóÊ±Ê¹ÓÃ['Transfer-Encoding', 'chunked']ÇëÇóÍ·¡£
- * @param {Object or String} chunk ²ÎÊıchunkÓ¦µ±ÊÇÒ»¸öÕûÊıÊı×é»ò×Ö·û´®¡£
- * @param {String} encoding ²ÎÊıencodingÊÇ¿ÉÑ¡µÄ£¬½öÔÚchunkÎª×Ö·û´®Ê±¿ÉÓÃ¡£
+ * æºAPIï¼šrequest.write(chunk, [encoding])
+ * è¯´æ˜ï¼šå‘é€æ­£æ–‡ä¸­çš„ä¸€å—ã€‚ç”¨æˆ·å¯ä»¥é€šè¿‡å¤šæ¬¡è°ƒç”¨è¿™ä¸ªæ–¹æ³•å°†è¯·æ±‚æ­£æ–‡ä»¥æµçš„æ–¹å¼å‘é€åˆ°æœåŠ¡å™¨ã€‚æ­¤ç§æƒ…å†µå»ºè®®åœ¨å»ºç«‹è¯·æ±‚æ—¶ä½¿ç”¨['Transfer-Encoding', 'chunked']è¯·æ±‚å¤´ã€‚
+ * @param {Object or String} chunk å‚æ•°chunkåº”å½“æ˜¯ä¸€ä¸ªæ•´æ•°æ•°ç»„æˆ–å­—ç¬¦ä¸²ã€‚
+ * @param {String} encoding å‚æ•°encodingæ˜¯å¯é€‰çš„ï¼Œä»…åœ¨chunkä¸ºå­—ç¬¦ä¸²æ—¶å¯ç”¨ã€‚
  */
 req.write('data\n');
 
 /**
- * Ô´API£ºrequest.end(chunk, [encoding])
- * ËµÃ÷£ºÍê³É±¾´ÎÇëÇóµÄ·¢ËÍ¡£Èç¹ûÕıÎÄÖĞµÄÈÎºÎÒ»¸ö²¿·ÖÃ»ÓĞÀ´µÃ¼°·¢ËÍ£¬½«°ÑËûÃÇÈ«²¿Ë¢ĞÂµ½Á÷ÖĞ¡£Èç¹û±¾´ÎÇëÇóÊÇ·Ö¿éµÄ£¬Õâ¸öº¯Êı½«·¢³ö½áÊø×Ö·û'0\r\n\r\n'¡£Èç¹ûÊ¹ÓÃ²ÎÊıdata£¬¾ÍµÈÓÚÔÚµ÷ÓÃrequest.write(data, encoding)Ö®ºó½ô½Ó×Åµ÷ÓÃrequest.end()¡£
- * @param {Object or String} chunk ²ÎÊıchunkÓ¦µ±ÊÇÒ»¸öÕûÊıÊı×é»ò×Ö·û´®¡£
- * @param {String} encoding ²ÎÊıencodingÊÇ¿ÉÑ¡µÄ£¬½öÔÚchunkÎª×Ö·û´®Ê±¿ÉÓÃ¡£
+ * æºAPIï¼šrequest.end(chunk, [encoding])
+ * è¯´æ˜ï¼šå®Œæˆæœ¬æ¬¡è¯·æ±‚çš„å‘é€ã€‚å¦‚æœæ­£æ–‡ä¸­çš„ä»»ä½•ä¸€ä¸ªéƒ¨åˆ†æ²¡æœ‰æ¥å¾—åŠå‘é€ï¼Œå°†æŠŠä»–ä»¬å…¨éƒ¨åˆ·æ–°åˆ°æµä¸­ã€‚å¦‚æœæœ¬æ¬¡è¯·æ±‚æ˜¯åˆ†å—çš„ï¼Œè¿™ä¸ªå‡½æ•°å°†å‘å‡ºç»“æŸå­—ç¬¦'0\r\n\r\n'ã€‚å¦‚æœä½¿ç”¨å‚æ•°dataï¼Œå°±ç­‰äºåœ¨è°ƒç”¨request.write(data, encoding)ä¹‹åç´§æ¥ç€è°ƒç”¨request.end()ã€‚
+ * @param {Object or String} chunk å‚æ•°chunkåº”å½“æ˜¯ä¸€ä¸ªæ•´æ•°æ•°ç»„æˆ–å­—ç¬¦ä¸²ã€‚
+ * @param {String} encoding å‚æ•°encodingæ˜¯å¯é€‰çš„ï¼Œä»…åœ¨chunkä¸ºå­—ç¬¦ä¸²æ—¶å¯ç”¨ã€‚
  * example: req.end(),req.end('data\n'),req.end('data','utf8'),req.end(chunk)
  */
 req.end();
 
 /**
- * ×èÖ¹Ò»¸öÇëÇó¡££¨v0.3.8ÖĞĞÂÔöµÄ·½·¨¡££©
+ * é˜»æ­¢ä¸€ä¸ªè¯·æ±‚ã€‚ï¼ˆv0.3.8ä¸­æ–°å¢çš„æ–¹æ³•ã€‚ï¼‰
  */
 req.abort();
 
 /**
- * Ô´API£ºrequest.setTimeout(timeout, [callback])
- * ËµÃ÷£ºÒ»µ©¸øÕâ¸öÇëÇó·ÖÅäµÄÊÇÒ»¸ösocketÊ±´Ëº¯Êı»á±»µ÷ÓÃ
- * @param {Number} timeout ºÁÃë
- * @param {Function} callback »Øµ½º¯Êı
+ * æºAPIï¼šrequest.setTimeout(timeout, [callback])
+ * è¯´æ˜ï¼šä¸€æ—¦ç»™è¿™ä¸ªè¯·æ±‚åˆ†é…çš„æ˜¯ä¸€ä¸ªsocketæ—¶æ­¤å‡½æ•°ä¼šè¢«è°ƒç”¨
+ * @param {Number} timeout æ¯«ç§’
+ * @param {Function} callback å›åˆ°å‡½æ•°
  */
 req.setTimeout(1000,function(){});
 
 /**
- * Ô´API :request.setNoDelay([noDelay])
- * ËµÃ÷£ºÄ¬ÈÏÓĞÒ»¶¨µÄÑÓ³Ù£¬ÉèÖÃÎª0±íÊ¾ÎŞÑÓ³Ù
+ * æºAPI :request.setNoDelay([noDelay])
+ * è¯´æ˜ï¼šé»˜è®¤æœ‰ä¸€å®šçš„å»¶è¿Ÿï¼Œè®¾ç½®ä¸º0è¡¨ç¤ºæ— å»¶è¿Ÿ
  * @param {Number} noDelay
  */
 req.setNoDelay(0)
 /**
- * Ô´API£ºrequest.setSocketKeepAlive([enable], [initialDelay])
- *     ÀàËÆÍ¬ÉÏ
+ * æºAPIï¼šrequest.setSocketKeepAlive([enable], [initialDelay])
+ *     ç±»ä¼¼åŒä¸Š
  */
